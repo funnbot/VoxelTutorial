@@ -39,4 +39,26 @@ public class MeshData {
             colTriangles.Add (vertices.Count - 1);
         }
     }
+
+    public void AddTriangle(int tri) {
+        triangles.Add(tri);
+        if (useRenderDataForCol) {
+            colTriangles.Add(tri - (vertices.Count - colVertices.Count));
+        }
+    }
+
+    public Mesh ToMesh() {
+        Mesh mesh = new Mesh();
+        mesh.vertices = vertices.ToArray();
+        mesh.triangles = triangles.ToArray();
+        mesh.uv = uv.ToArray();
+        return mesh;
+    }
+
+    public Mesh ToMeshCollider() {
+        Mesh mesh = new Mesh();
+        mesh.vertices = colVertices.ToArray();
+        mesh.triangles = colTriangles.ToArray();
+        return mesh;
+    }
 }
